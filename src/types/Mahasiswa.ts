@@ -1,4 +1,4 @@
-interface Mahasiswa {
+export interface Mahasiswa {
   namaMhs: string;
   npmMhs: string;
 }

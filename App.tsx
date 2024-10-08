@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {styles} from './src/styles/AppStyles';
 import {AppState} from './src/types/Mahasiswa';
+import {dataMahasiswa} from './src/data/Mahasiswa';
 
 class App extends Component<{}, AppState> {
   constructor(props: any) {
@@ -20,32 +21,7 @@ class App extends Component<{}, AppState> {
       header: 'Home',
       value: true,
       username: '',
-      dataMahasiswa: [
-        {
-          namaMhs: 'Ahmad',
-          npmMhs: '170001',
-        },
-        {
-          namaMhs: 'Budi',
-          npmMhs: '180001',
-        },
-        {
-          namaMhs: 'Fadhlan',
-          npmMhs: '190001',
-        },
-        {
-          namaMhs: 'Fadhil',
-          npmMhs: '200001',
-        },
-        {
-          namaMhs: 'Mawar',
-          npmMhs: '210001',
-        },
-        {
-          namaMhs: 'Nisa',
-          npmMhs: '220001',
-        },
-      ],
+      dataMahasiswa: dataMahasiswa,
     };
   }
 
