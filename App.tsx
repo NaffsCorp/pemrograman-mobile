@@ -69,16 +69,23 @@ class App extends Component<{}, AppState> {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => Linking.openURL('https://www.prinafsika.world')}>
-          <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-            Open Website
-          </Text>
-        </TouchableOpacity>
+        <View style={{paddingBottom: 30}}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => Linking.openURL('https://www.prinafsika.world')}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 20,
+                fontWeight: 'bold',
+              }}>
+              Open Website
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <FlatList
-          style={{flex: 1, paddingTop: 20}}
+          style={{flex: 1}}
           data={this.state.dataMahasiswa}
           renderItem={({item}) => (
             <TouchableOpacity
