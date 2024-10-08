@@ -1,118 +1,126 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {Component} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  Text,
+  StatusBar,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+  Linking,
+  ToastAndroid,
+  ImageBackground,
 } from 'react-native';
+import {styles} from './src/styles/AppStyles';
+import {AppState} from './src/types/Mahasiswa';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+class App extends Component<{}, AppState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      header: 'Home',
+      value: true,
+      username: '',
+      dataMahasiswa: [
+        {
+          namaMhs: 'Ahmad',
+          npmMhs: '170001',
+        },
+        {
+          namaMhs: 'Budi',
+          npmMhs: '180001',
+        },
+        {
+          namaMhs: 'Fadhlan',
+          npmMhs: '190001',
+        },
+        {
+          namaMhs: 'Fadhil',
+          npmMhs: '200001',
+        },
+        {
+          namaMhs: 'Mawar',
+          npmMhs: '210001',
+        },
+        {
+          namaMhs: 'Nisa',
+          npmMhs: '220001',
+        },
+      ],
+    };
+  }
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  render() {
+    return (
+      <View style={{flex: 1}}>
+        <StatusBar barStyle="light-content" backgroundColor={'#09bd75'} />
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+        <View style={styles.imagecontainer}>
+          <Text
+            style={{
+              color: '#fff',
+              fontWeight: 'bold',
+              fontSize: 25,
+            }}>
+            {this.state.header}
+          </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+        <TouchableOpacity
+          style={styles.image}
+          onPress={() =>
+            Alert.alert('Information', 'Anda akan menghapus gambar ini?', [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {
+                text: 'OK',
+                onPress: () => console.log('OK Pressed'),
+              },
+            ])
+          }>
+          <ImageBackground
+            style={{
+              width: 300,
+              height: 300,
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              padding: 20,
+            }}
+            source={require('./src/images/beautiful-anime-character-cartoon-scene.jpg')}>
+            <Text style={{color: 'white', fontSize: 15}}>React-Native</Text>
+          </ImageBackground>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => Linking.openURL('https://www.prinafsika.world')}>
+          <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
+            Open Website
+          </Text>
+        </TouchableOpacity>
+
+        <FlatList
+          style={{flex: 1, paddingTop: 20}}
+          data={this.state.dataMahasiswa}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={styles.flatListItem}
+              onPress={() =>
+                ToastAndroid.show(item.namaMhs + ' di klik', ToastAndroid.SHORT)
+              }>
+              <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
+                {item.namaMhs}
+              </Text>
+              <Text style={{color: 'white'}}>{item.npmMhs}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.npmMhs}
+        />
+      </View>
+    );
+  }
+}
 
 export default App;
